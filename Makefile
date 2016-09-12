@@ -66,6 +66,8 @@ CMD_PTEST = $(OBJ_TOOLS_DIR)/pconfigure/bin/ptest
 CMD_PCONFIGURE = $(OBJ_TOOLS_DIR)/pconfigure/bin/pconfigure
 CMD_PPKGCONFIG = $(OBJ_TOOLS_DIR)/pconfigure/bin/ppkg-config
 CMD_PCAD_INFER_DECOUPLED = $(OBJ_TOOLS_DIR)/pcad/bin/pcad-pipe-infer_decoupled
+CMD_PCAD_TO_VERILOG = $(OBJ_TOOLS_DIR)/pcad/bin/pcad-pipe-to_verilog
+CMD_PCAD_GENERATE_BB = $(OBJ_TOOLS_DIR)/pcad/bin/pcad-pipe-to_blackbox
 CMD_SBT = $(OBJ_TOOLS_DIR)/sbt/sbt
 
 PKG_CONFIG_PATH=$(abspath $(OBJ_TOOLS_DIR)/install/lib/pkgconfig)
@@ -254,7 +256,7 @@ $(PLSI_CACHE_DIR)/distfiles/tclap-$(TCLAP_VERSION).tar.gz:
 	wget 'http://downloads.sourceforge.net/project/tclap/tclap-$(TCLAP_VERSION).tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ftclap%2Ffiles%2F&ts=1468971231&use_mirror=jaist' -O $@
 
 $(OBJ_TOOLS_DIR)/pcad/bin/%: $(OBJ_TOOLS_DIR)/pcad/Makefile
-	$(SCHEDULER_CMD) --make -- $(MAKE) -C $(OBJ_TOOLS_DIR)/pcad bin/$(notdir $@)
+	$(SCHEDULER_CMD) --make -- $(MAKE) -C $(OBJ_TOOLS_DIR)/pcad CFLAGS="-g" LDFLAGS="-g" CXXFLAGS="-g" bin/$(notdir $@)
 
 $(OBJ_TOOLS_DIR)/pcad/Makefile: src/tools/pcad/Configfile \
 				$(shell find src/tools/pcad/src -type f) \
